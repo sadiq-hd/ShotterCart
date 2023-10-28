@@ -1,0 +1,45 @@
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="container">
+    <div class="section">
+        <h2 class="section-header">Shipping Address</h2>
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" required>
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" id="address" required>
+        </div>
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city" required>
+        </div>
+        <div class="form-group">
+            <label for="state">State</label>
+            <input type="text" id="state" required>
+        </div>
+        <div class="form-group">
+            <label for="zip">ZIP Code</label>
+            <input type="text" id="zip" required>
+        </div>
+        <div class="form-group">
+            <label for="country">Country</label>
+            <input type="text" id="country" required>
+        </div>
+        <button class="btn">Save Address</button>
+    </div>
+    <div class="section">
+        <h2 class="section-header">Order Summary</h2>
+        <ul>
+          <li *ngFor="let item of cartItems">    <img src="{{ item.image }}" alt="{{ item.name }}" class="card-img"> {{ item.name }} - {{ item.price | currency:'SAR' }}</li>
+        </ul>
+      </div>
+      
+    <div class="section">
+        <h2 class="section-header">Payment Method</h2>
+        <button class="btn">Pay with Credit Card</button>
+        <button class="btn">Pay with PayPal</button>
+        <button class="btn">Pay with Cash on Delivery</button>
+    </div>
+</div>

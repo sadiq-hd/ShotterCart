@@ -1,0 +1,62 @@
+<div class="container mt-5">
+    <div class="border p-3">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form [formGroup]="registrationForm" (ngSubmit)="proceedregister()">
+
+                    <div class="form-group mb-3">
+                        <label>
+                            <input type="radio" formControlName="role" value="customer"> عميل
+                        </label>
+                        <label>
+                            <input type="radio" formControlName="role" value="seller"> بائع
+                        </label>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="email">البريد الإلكتروني</label>
+                        <input type="email" formControlName="email" id="email" class="form-control">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="id">الاسم:</label>
+                        <input type="text" class="form-control" id="id" formControlName="id" required>
+                        <!-- يمكنك إضافة رسائل خطأ هنا لـ id إذا كنت ترغب في ذلك -->
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="password">كلمة المرور</label>
+                        <input type="password" formControlName="password" id="password" class="form-control">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="gender">الجنس</label>
+                        <select formControlName="gender" id="gender" class="form-control">
+                            <option value="male">ذكر</option>
+                            <option value="female">أنثى</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="phone">الهاتف</label>
+                        <input type="tel" formControlName="phone" id="phone" class="form-control">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="address">العنوان</label>
+                        <select formControlName="address" id="address" class="form-control">
+                            <option value="البحرين">البحرين</option>
+                            <!-- ... المزيد من الخيارات -->
+                        </select>
+                    </div>
+                    <!-- حقول البائع -->
+                    <div *ngIf="registrationForm.get('role')?.value === 'seller'">
+                        <div class="form-group mb-3">
+                            <label for="storeName">اسم المتجر (اختياري)</label>
+                            <input type="text" formControlName="storeName" id="storeName" class="form-control">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="storeDescription">وصف المتجر (إلزامي)</label>
+                            <textarea formControlName="storeDescription" id="storeDescription" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">تسجيل</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
