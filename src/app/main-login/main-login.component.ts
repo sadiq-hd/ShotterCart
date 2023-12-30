@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../service/auth.service';
 
@@ -9,73 +8,84 @@ import { AuthService } from '../service/auth.service';
   selector: 'app-main-login',
   templateUrl: './main-login.component.html',
   styleUrls: ['./main-login.component.css'],
-
 })
 export class MainLoginComponent {
+  constructor(
+    private builder: FormBuilder, 
+    private toastr: ToastrService, 
+    private authService: AuthService, 
+    private router: Router
+  ) {}
 
-  constructor(private builder: FormBuilder, private toastr: ToastrService, private service: AuthService,
-    private router: Router) {
-   
-  }
-
-  result: any;
   loginForm = this.builder.group({
     id: this.builder.control('', [Validators.required]),
-    password: this.builder.control('', Validators.required)
+    password: this.builder.control('', Validators.required),
+    activationCode: ['']
+
   });
-
-  
-  // الدالة التي تتم استدعاؤها عند تقديم النموذج
+  isActivationRequired = false;
   proceedlogin() {
-    // التحقق من صحة النموذج
     if (this.loginForm.valid) {
+      const id = this.loginForm.get('id')!.value as string;
+      const password = this.loginForm.get('password')!.value as string;
+  
+      this.authService.login(id, password).subscribe(user => {
+        if (user) {
+          if (!user.isactive) {
+            this.isActivationRequired = true; // تعيين الخاصية هنا
 
-      // الاستعلام عن المستخدم باستخدام الخدمة
-      this.service.GetUserbyCode(this.loginForm.value.id).subscribe(item => {
-        this.result = item;
-
-        // التحقق من مطابقة كلمة المرور
-        if (this.result && this.result.password === this.loginForm.value.password) {
-
-          // التحقق من نشاط المستخدم
-          if (!this.result.isactive) {
-            this.toastr.error('Please contact Admin', 'InActive User');
-            return;
-          }
-
-          // حفظ بيانات المستخدم في sessionStorage
-          sessionStorage.setItem('username', this.result.id);
-          sessionStorage.setItem('role', this.result.role);
-
-          // قم بإضافة هذا السطر داخل دالة proceedlogin بعد التحقق من صحة المستخدم وقبل التوجيه
-          this.service.login();
-
-
-          // التوجيه إلى الصفحة المناسبة بناءً على دور المستخدم
-          switch (this.result.role) {
-            case 'users':
-              this.router.navigate(['home']);
-              break;
-            case 'seller':
-              this.router.navigate(['external-seller-home']); 
-              break;
+            // المستخدم غير مفعل
+            this.toastr.warning('Your account is not activated. Please check your email.');
+          } else {
+            // المستخدم مفعل
+            sessionStorage.setItem('userId', user.id);
+            sessionStorage.setItem('role', user.role);
+  
+            // التوجيه بناءً على دور المستخدم
+            switch (user.role) {
               case 'admin':
-                this.router.navigate(['/admin-dashboard']); 
+                this.router.navigate(['/admin-dashboard']); // توجيه المسؤول إلى لوحة التحكم
                 break;
-
-            default:
-              this.router.navigate(['home']); 
+              case 'ExternalSeller':
+                this.router.navigate(['external-seller-home']);
+                break;
+                case 'employee':
+                  this.router.navigate(['/admin-dashboard']);
+                  break;            
+                  
+                  default:
+                this.router.navigate(['home']); // توجيه الأدوار الأخرى إلى الصفحة الرئيسية
+                break;
+            }
+            this.toastr.success('Login successful!');
           }
-
-   
-
         } else {
-          this.toastr.error('Invalid credentials');
+          this.toastr.error('Invalid credentials.');
         }
+      }, error => {
+        this.toastr.error('Login failed. Please try again.');
       });
-
     } else {
-      this.toastr.warning('Please enter valid data.');
+      this.toastr.warning('Please enter valid credentials.');
     }
+  }
+  activateAccount() {
+    const id = this.loginForm.get('id')!.value as string;
+    const activationCode = this.loginForm.get('activationCode')!.value as string;
+
+    this.authService.activateAccount(id, activationCode).subscribe({
+      next: (response) => {
+        if (response.isActivated) {
+          this.toastr.success('Account activated successfully.');
+          this.router.navigate(['home']);
+        } else {
+          this.toastr.error('Invalid activation code.');
+        }
+      },
+      error: (error) => {
+        this.toastr.error('Activation failed. Please try again.');
+        console.error(error);
+      }
+    });
   }
 }

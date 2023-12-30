@@ -1,8 +1,11 @@
+// RegistrationComponent.ts
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
+import { EmailService } from '../service/email.service';
 
 @Component({
   selector: 'app-registration',
@@ -11,10 +14,15 @@ import { Router } from '@angular/router';
   providers: [AuthService]
 })
 export class RegistrationComponent implements OnInit {
-
   registrationForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private toastr: ToastrService, private router: Router) {}
+  constructor(
+    private fb: FormBuilder, 
+    private authService: AuthService, 
+    private toastr: ToastrService, 
+    private router: Router, 
+    private emailService: EmailService
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -22,7 +30,7 @@ export class RegistrationComponent implements OnInit {
 
   initForm() {
     this.registrationForm = this.fb.group({
-      role: ['customer'],
+      role: ['customer', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       id: ['', [Validators.required, Validators.minLength(5)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -36,11 +44,16 @@ export class RegistrationComponent implements OnInit {
 
   proceedregister() {
     if (this.registrationForm.valid) {
-      this.authService.RegisterUser(this.registrationForm.value).subscribe(result => {
-        this.toastr.success('Registered successfully');
-        this.router.navigate(['login']);
-      }, error => {
-        this.toastr.warning('Error during registration.');
+      const newUser = this.registrationForm.value;
+      this.authService.RegisterUser(newUser).subscribe({
+        next: (result) => {
+          this.authService.sendActivationEmail(newUser.email, newUser.id);
+          this.toastr.success('Registered successfully. Please check your email for activation code.');
+          this.router.navigate(['main-login']);
+        },
+        error: () => {
+          this.toastr.error('Error during registration.');
+        }
       });
     } else {
       this.toastr.warning('Please enter valid data.');

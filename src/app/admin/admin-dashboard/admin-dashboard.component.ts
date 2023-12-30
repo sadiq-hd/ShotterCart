@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/service/product.service';
 import { AuthService } from 'src/app/service/auth.service';
+
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
@@ -15,15 +16,22 @@ export class AdminDashboardComponent implements OnInit {
   constructor(private productService: ProductService, private authService: AuthService) {}
 
   ngOnInit(): void {
-    // Fetch data for the admin dashboard
-    this.productService.getActiveUsersCount().subscribe((count: number) => {
-      this.activeUsers = count;
+    this.loadUsersData();
+    this.loadProductsData();
+  }
+
+  loadUsersData(): void {
+    this.productService.getActiveUsersCount().subscribe((activeCount: number) => {
+      this.activeUsers = activeCount;
     });
 
-    this.productService.getInactiveUsersCount().subscribe((count: number) => {
-      this.inactiveUsers = count;
+    this.productService.getInactiveUsersCount().subscribe((inactiveCount: number) => {
+      this.inactiveUsers = inactiveCount;
     });
+  }
 
+  loadProductsData(): void {
+    // تأكد من تعريف هذه الدوال في ProductService
     this.productService.getBestSellingProducts().subscribe((products: any[]) => {
       this.bestSellingProducts = products;
     });
@@ -33,11 +41,9 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  // Add any additional admin functionality here
-  // For example, you can create methods to manage users or products.
-
-  // You can also use the authService to check if the user is an admin.
   isAdmin(): boolean {
     return this.authService.isAdmin();
   }
+
+  // ... الدوال الأخرى ...
 }

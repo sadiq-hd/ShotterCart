@@ -58,7 +58,7 @@ export class SellerAddProductComponent implements OnInit {
         stock: this.productForm.get('stock')!.value,
         image: this.selectedImages[0] || "image_default.png", // إذا كان هناك صور محددة
         category: this.productForm.get('category')!.value,  // خاصية جديدة لنوع المنتج
-        approved: this.productForm.get('approved')!.value  // حقل الموافقة
+        approved: false  // حقل الموافقة
       };
 
       // إرسال البيانات للموافقة

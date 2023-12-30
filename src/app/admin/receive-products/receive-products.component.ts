@@ -7,29 +7,33 @@ import { ProductService } from 'src/app/service/product.service';
   styleUrls: ['./receive-products.component.css']
 })
 export class ReceiveProductsComponent implements OnInit {
-  products: any[] = []; // قائمة المنتجات المرسلة للموافقة
+  productsForApproval: any[] = [];
 
   constructor(private productService: ProductService) {}
 
-  ngOnInit(): void {
-    this.getProductsForApproval();
+  ngOnInit() {
+    this.loadProductsForApproval();
   }
+  
 
-  getProductsForApproval() {
-    this.productService.getProductsForApproval().subscribe((data: any) => {
-      this.products = data;
+  loadProductsForApproval() {
+    this.productService.getProductsForApproval().subscribe(data => {
+      this.productsForApproval = data;
     });
   }
 
   approveProduct(productId: number) {
     this.productService.approveProduct(productId).subscribe(() => {
-      this.getProductsForApproval(); // إعادة تحميل القائمة بعد الموافقة
+      // تحديث القائمة بعد الموافقة
+      this.loadProductsForApproval();
+      // يمكنك أيضًا إضافة الخطوات اللازمة لنقل المنتج إلى القائمة الرئيسية
     });
   }
-
   rejectProduct(productId: number) {
-    this.productService.rejectProduct(productId).subscribe(() => {
-      this.getProductsForApproval(); // إعادة تحميل القائمة بعد الرفض
-    });
+    // منطق رفض المنتج
+    // هذا الكود يفترض أنه يتم التعامل مع المنتجات محليًا
+    this.productsForApproval = this.productsForApproval.filter(product => product.id !== productId);
+
+    // يمكنك هنا إضافة الكود للتعامل مع الخادم الخلفي إذا لزم الأمر
   }
 }

@@ -1,7 +1,7 @@
 // productService.ts
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +15,18 @@ export class ProductService {
     const headers = { 'Content-Type': 'application/json' };
     return this.http.post(`${this.apiurl}/products`, product, { headers });
   }
+  
   addProductForApproval(product: any) {
     const headers = { 'Content-Type': 'application/json' };
-    return this.http.post(`${this.apiurl}/products-for-approval`, product, { headers });
+    return this.http.post(`${this.apiurl}/products-for-approval`, product, { headers })
+      .pipe(retry(3)); // Retry the request up to 3 times
   }
+  
   getProductsForApproval() {
-    return this.http.get<any[]>(`${this.apiurl}/admin/products-for-approval`);
+    return this.http.get<any[]>(`${this.apiurl}/products-for-approval`);
   }
+  
+  
 
   approveProduct(productId: number) {
     const headers = { 'Content-Type': 'application/json' };
@@ -34,8 +39,9 @@ export class ProductService {
   }
 
   getProducts() {
-    return this.http.get(`${this.apiurl}/products`);
+    return this.http.get<any[]>(`${this.apiurl}/products`);
   }
+  
 
   getProductDetails(id: number) {
     return this.http.get(`${this.apiurl}/products/${id}`);

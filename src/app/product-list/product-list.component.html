@@ -23,8 +23,29 @@
           <td><input type="number" [(ngModel)]="product.stock"></td>
           <td>
             <select [(ngModel)]="product.category">
-              <option value="electronics">إلكترونيات</option>
-              <option value="clothing">ملابس</option>
+                        
+                <!-- تصنيفات الكاميرات -->
+                <optgroup label="كاميرات">
+                    <option value="dslr-cameras">كاميرات DSLR</option>
+                    <option value="mirrorless-cameras">كاميرات بدون مرآة</option>
+                </optgroup>
+                <!-- تصنيفات العدسات -->
+                <optgroup label="عدسات">
+                    <option value="zoom-lenses">عدسات زووم</option>
+                    <option value="prime-lenses">عدسات ثابتة</option>
+                </optgroup>
+                <!-- تصنيفات الإكسسوارات -->
+                <optgroup label="إكسسوارات">
+                    <option value="bags">حقائب</option>
+                    <option value="batteries">بطاريات</option>
+                </optgroup>
+                <!-- تصنيفات معدات الاستوديو -->
+                <optgroup label="معدات الاستوديو">
+                    <option value="lighting">إضاءة</option>
+                    <option value="backdrops">خلفيات</option>
+                </optgroup>
+            
+                <!-- ... المزيد من الخيارات -->
             </select>
           </td>
           <td>

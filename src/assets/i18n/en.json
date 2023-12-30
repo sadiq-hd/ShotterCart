@@ -11,7 +11,7 @@
   "navbar.myAccount": "My Account",
   "navbar.cart": "Cart",
   "navbar.language": "Language",
-
+  "navbar.admin-dashboared":"dashboared",
 
   "navbar.price": "Price: ",
   "product.stock": "Available Quantity: {{ stock }}",
@@ -39,5 +39,39 @@
   "cart.subtotalFor": "Subtotal for {{ name }}: {{ subtotal }}",
   "cart.shipping": "Shipping: Free",
   "cart.total": "Total",
-  "cart.proceedToCheckout": "Proceed to Checkout"
+  "cart.proceedToCheckout": "Proceed to Checkout",
+
+  "CAMERAS": "Cameras",
+  "DSLRCAMERAS": "DSLR Cameras",
+  "MIRRORLESSCAMERAS": "Mirrorless Cameras",
+  "LENSES": "Lenses",
+  "ZOOMLENSES": "Zoom Lenses",
+  "PRIMELENSES": "Prime Lenses",
+  "ACCESSORIES": "Accessories",
+  "BAGS": "Bags",
+  "BATTERIES": "Batteries",
+  "STUDIOEQUIPMENT": "Studio Equipment",
+  "LIGHTING": "Lighting",
+  "BACKDROPS": "Backdrops",
+
+
+  "ID": "ID",
+  "PASSWORD": "Password",
+  "LOGIN": "Login",
+  "CUSTOMER": "Customer",
+  "SELLER": "Seller",
+  "EMAIL": "Email",
+  "NAME": "Name",
+  "GENDER": "Gender",
+  "PHONE": "Phone",
+  "ADDRESS": "Address",
+  "SAUDI_ARABIA": "Saudi Arabia",
+  "BAHRAIN": "Bahrain",
+  "UAE": "United Arab Emirates",
+  "QATAR": "Qatar",
+  "OMAN": "Oman",
+  "KUWAIT": "Kuwait",
+  "STORE_NAME": "Store Name (Optional)",
+  "STORE_DESCRIPTION": "Store Description (Mandatory)",
+  "REGISTER": "Register"
 }

@@ -1,30 +1,12 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة تحكم المسؤول</title>
     <!-- تضمين Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            background-color: #f3f4f6;
-        }
-        .form-container {
-            background-color: #ffffff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-        .thumbnail {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-right: 10px;
-        }
-    </style>
+  
 </head>
 <body>
     <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
@@ -50,8 +32,29 @@
                 <div class="col-md-6 form-group mb-3">
                     <label for="category">فئة المنتج</label>
                     <select class="form-control" id="category" formControlName="category">
-                        <option value="electronics">إلكترونيات</option>
-                        <option value="clothing">ملابس</option>
+                        
+                        <!-- تصنيفات الكاميرات -->
+                        <optgroup label="كاميرات">
+                            <option value="dslr-cameras">كاميرات DSLR</option>
+                            <option value="mirrorless-cameras">كاميرات بدون مرآة</option>
+                        </optgroup>
+                        <!-- تصنيفات العدسات -->
+                        <optgroup label="عدسات">
+                            <option value="zoom-lenses">عدسات زووم</option>
+                            <option value="prime-lenses">عدسات ثابتة</option>
+                        </optgroup>
+                        <!-- تصنيفات الإكسسوارات -->
+                        <optgroup label="إكسسوارات">
+                            <option value="bags">حقائب</option>
+                            <option value="batteries">بطاريات</option>
+                        </optgroup>
+                        <!-- تصنيفات معدات الاستوديو -->
+                        <optgroup label="معدات الاستوديو">
+                            <option value="lighting">إضاءة</option>
+                            <option value="backdrops">خلفيات</option>
+                        </optgroup>
+                    
+                        <!-- ... المزيد من الخيارات -->
                     </select>
                 </div>
                 <div class="col-md-6 form-group mb-3">

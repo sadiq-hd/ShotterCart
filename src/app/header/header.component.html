@@ -9,44 +9,54 @@
         <a class="nav-link" routerLink="/home">{{ 'navbar.home' | translate }}</a>
       </li>
 
+      <!-- عناصر المسؤول -->
       <li class="nav-item" *ngIf="isAdmin">
         <a class="nav-link" routerLink="/manage-users">{{ 'navbar.manageUsers' | translate }}</a>
-      </li>
-      <li class="nav-item" *ngIf="isAdmin || isEmployee ">
-        <a class="nav-link" routerLink="/receive-products">{{ 'navbar.receiveProducts' | translate }}</a>
       </li>
       <li class="nav-item" *ngIf="isAdmin">
         <a class="nav-link" routerLink="/employee-registration">{{ 'navbar.employee-registration' | translate }}</a>
       </li>
-      <li class="nav-item" *ngIf="isAdmin || isEmployee ">
+      <li class="nav-item" *ngIf="isAdmin || isEmployee">
+        <a class="nav-link" routerLink="/admin-dashboard">{{ 'navbar.admin-dashboared' | translate }}</a>
+      </li>
+      <!-- عناصر الموظفين والمسؤولين -->
+      <li class="nav-item" *ngIf="isAdmin || isEmployee">
+        <a class="nav-link" routerLink="/receive-products">{{ 'navbar.receiveProducts' | translate }}</a>
+      </li>
+      <li class="nav-item" *ngIf="isAdmin || isEmployee">
         <a class="nav-link" routerLink="/product-list">{{ 'navbar.productlist' | translate }}</a>
       </li>
-      <li class="nav-item" *ngIf="isAdmin || isEmployee ">
+      <li class="nav-item" *ngIf="isAdmin || isEmployee">
         <a class="nav-link" routerLink="/add-product">{{ 'navbar.addProduct' | translate }}</a>
       </li>
 
+      <!-- عناصر البائعين الخارجيين -->
       <li class="nav-item" *ngIf="isLoggedIn && isExternalSeller">
-        <a class="nav-link" routerLink="/add-product">{{ 'navbar.addProduct' | translate }}</a>
+        <a class="nav-link" routerLink="/seller-add-product">{{ 'navbar.addProduct' | translate }}</a>
       </li>
 
+      <!-- عناصر لغير المسجلين -->
       <li class="nav-item" *ngIf="!isLoggedIn">
         <a class="nav-link" routerLink="/main-login">{{ 'navbar.login' | translate }}</a>
-      </li>
-      <li class="nav-item" *ngIf="isLoggedIn">
-        <a class="nav-link" (click)="logout()">{{ 'navbar.logout' | translate }}</a>
       </li>
       <li class="nav-item" *ngIf="!isLoggedIn">
         <a class="nav-link" routerLink="/registration">{{ 'navbar.register' | translate }}</a>
       </li>
+
+      <!-- عناصر للمسجلين -->
+      <li class="nav-item" *ngIf="isLoggedIn">
+        <a class="nav-link" (click)="logout()">{{ 'navbar.logout' | translate }}</a>
+      </li>
       <li class="nav-item" *ngIf="isLoggedIn">
         <a class="nav-link" routerLink="/my-account">{{ 'navbar.myAccount' | translate }}</a>
       </li>
+
+      <!-- عربة التسوق -->
       <li class="nav-item">
-        <a class="nav-link" routerLink="/shopping-cart">  <img src="assets/icone/cart.svg" alt="cart" />
-        </a>
+        <a class="nav-link" routerLink="/shopping-cart"><img src="assets/icone/cart.svg" alt="cart" /></a>
       </li>
 
-   
+      <!-- قائمة تغيير اللغة -->
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          {{ 'navbar.language' | translate }}
@@ -55,9 +65,7 @@
           <a class="dropdown-item" (click)="changeLanguage('ar')">عربي</a>
           <a class="dropdown-item" (click)="changeLanguage('en')">English</a>
         </div>
-        
       </li>
     </ul>
   </div>
-
-  
+</nav>

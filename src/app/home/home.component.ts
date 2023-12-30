@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../service/product.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ShoppingCartService } from '../service/shopping-cart.service';
-
+import { SearchServiceService } from '../service/search-service.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -24,7 +24,9 @@ export class HomeComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private translate: TranslateService,
-    private shoppingCartService: ShoppingCartService
+    private shoppingCartService: ShoppingCartService,
+    private searchServiceService: SearchServiceService // حقن خدمة البحث هنا
+
   ) {}
 
   ngOnInit(): void {
@@ -61,8 +63,15 @@ export class HomeComponent implements OnInit {
       this.productService.searchProducts(this.searchKeyword).subscribe((results: any[]) => {
         this.searchResults = results;
         this.searchCompleted = true;
+         this.searchServiceService.sendSearchKeywordToServer(this.searchKeyword);
+
+        // تحديث سجل البحث
+        this.updateSearchHistory(this.searchKeyword);
       });
     }
+  }
+  private updateSearchHistory(keyword: string) {
+    
   }
   
   // دالة لإضافة المنتج إلى العربة
