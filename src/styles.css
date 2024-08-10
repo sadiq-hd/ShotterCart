@@ -14,14 +14,96 @@ html, body {
   }
   
   .content {
-    flex: 1; /* This makes sure that the content expands to fill available space, pushing the footer down */
+    flex: 1; 
   }
   
   .footer {
     width: 100%;
-    background-color: #333; /* Footer background color, same as the navbar */
+    background-color: #333; 
     color: white;
     text-align: center;
-    line-height: 60px; /* Center text vertically */
+    line-height: 60px; 
   }
-  
+  .product-image[_ngcontent-ng-c2423859921] {
+    max-width:fit-content;
+    height: auto;
+    border: 5px solid #ccc;
+    border-radius: 10px;
+    object-fit: cover;
+    height: 200px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    background-color: #f8f9fa;
+}
+  .product-card-image {
+    border: 5px solid #ccc; 
+    border-radius: 10px; 
+    object-fit: cover; 
+    height: 200px; 
+    width: 100%; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    padding: 5px; 
+    background-color: #f8f9fa; 
+}
+.card-img-top {
+  border: 5px solid #ccc; 
+  border-radius: 10px; 
+  object-fit: cover; 
+  height: 200px; 
+  width: 100%; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  padding: 5px; 
+  background-color: #f8f9fa; 
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+    text-align: center;
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.btn-primary {
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.btn-primary:hover {
+    background-color: #4cae4c;
+    border-color: #398439;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.mb-4 {
+    margin-bottom: 2rem !important;
+}
